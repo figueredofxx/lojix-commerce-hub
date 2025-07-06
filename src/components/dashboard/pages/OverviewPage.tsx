@@ -43,12 +43,17 @@ export function OverviewPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <Card key={index} className="border-l-4" style={{ borderLeftColor: stat.color }}>
+          <Card key={index} className="border-0 shadow-sm bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
                 {stat.title}
               </CardTitle>
-              <stat.icon className="h-4 w-4 text-gray-400" />
+              <div 
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: `${stat.color}20` }}
+              >
+                <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" style={{ color: stat.color }}>

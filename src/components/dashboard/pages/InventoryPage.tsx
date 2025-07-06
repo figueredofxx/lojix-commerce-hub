@@ -1,13 +1,32 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Search, Package, Edit, Trash2 } from 'lucide-react';
+import { Plus, Search, Package, Edit, Trash2, Upload } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function InventoryPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isStockDialogOpen, setIsStockDialogOpen] = useState(false);
+  const [isBatchDialogOpen, setIsBatchDialogOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  
+  const [stockForm, setStockForm] = useState({
+    produto: '',
+    numeroSerie: '',
+    precoCompra: '',
+    quantidade: '1'
+  });
+
+  const [batchForm, setBatchForm] = useState({
+    produto: '',
+    precoCompra: '',
+    quantidade: '',
+    serieInicial: ''
+  });
 
   const products = [
     {
@@ -64,6 +83,20 @@ export function InventoryPage() {
     return total / availableUnits.length;
   };
 
+  const handleStockSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Estoque lançado:', stockForm);
+    setIsStockDialogOpen(false);
+    setStockForm({ produto: '', numeroSerie: '', precoCompra: '', quantidade: '1' });
+  };
+
+  const handleBatchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Lote lançado:', batchForm);
+    setIsBatchDialogOpen(false);
+    setBatchForm({ produto: '', precoCompra: '', quantidade: '', serieInicial: '' });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -71,10 +104,162 @@ export function InventoryPage() {
           <h1 className="text-3xl font-bold text-gray-900">Inventário</h1>
           <p className="text-gray-600">Gerencie seus produtos e controle serializado</p>
         </div>
-        <Button className="bg-orange-500 hover:bg-orange-600 text-white">
-          <Plus className="w-4 h-4 mr-2" />
-          Adicionar Produto
-        </Button>
+        <div className="flex gap-2">
+          <Dialog open={isStockDialogOpen} onOpenChange={setIsStockDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline">
+                <Plus className="w-4 h-4 mr-2" />
+                Lançar Estoque
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Lançar Estoque Individual</DialogTitle>
+                <DialogDescription>
+                  Adicione uma unidade específica ao estoque
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleStockSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="produto">Produto</Label>
+                  <Select 
+                    value={stockForm.produto} 
+                    onValueChange={(value) => setStockForm({...stockForm, produto: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione um produto" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {products.map(product => (
+                        <SelectItem key={product.id} value={product.id.toString()}>
+                          {product.model}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="numeroSerie">Número de Série</Label>
+                  <Input
+                    id="numeroSerie"
+                    value={stockForm.numeroSerie}
+                    onChange={(e) => setStockForm({...stockForm, numeroSerie: e.target.value})}
+                    placeholder="Ex: IP14PM004"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="precoCompra">Preço de Compra (R$)</Label>
+                  <Input
+                    id="precoCompra"
+                    type="number"
+                    step="0.01"
+                    value={stockForm.precoCompra}
+                    onChange={(e) => setStockForm({...stockForm, precoCompra: e.target.value})}
+                    placeholder="0,00"
+                    required
+                  />
+                </div>
+                
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button type="button" variant="outline" onClick={() => setIsStockDialogOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button type="submit" className="bg-teal-500 hover:bg-teal-600">
+                    Lançar Estoque
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog open={isBatchDialogOpen} onOpenChange={setIsBatchDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline">
+                <Upload className="w-4 h-4 mr-2" />
+                Lançar Lote
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Lançar Lote de Produtos</DialogTitle>
+                <DialogDescription>
+                  Adicione múltiplas unidades com o mesmo preço de compra
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleBatchSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="produtoLote">Produto</Label>
+                  <Select 
+                    value={batchForm.produto} 
+                    onValueChange={(value) => setBatchForm({...batchForm, produto: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione um produto" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {products.map(product => (
+                        <SelectItem key={product.id} value={product.id.toString()}>
+                          {product.model}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="quantidade">Quantidade</Label>
+                  <Input
+                    id="quantidade"
+                    type="number"
+                    min="1"
+                    value={batchForm.quantidade}
+                    onChange={(e) => setBatchForm({...batchForm, quantidade: e.target.value})}
+                    placeholder="Ex: 5"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="precoCompraLote">Preço de Compra Unitário (R$)</Label>
+                  <Input
+                    id="precoCompraLote"
+                    type="number"
+                    step="0.01"
+                    value={batchForm.precoCompra}
+                    onChange={(e) => setBatchForm({...batchForm, precoCompra: e.target.value})}
+                    placeholder="0,00"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="serieInicial">Série Inicial (Opcional)</Label>
+                  <Input
+                    id="serieInicial"
+                    value={batchForm.serieInicial}
+                    onChange={(e) => setBatchForm({...batchForm, serieInicial: e.target.value})}
+                    placeholder="Ex: IP14PM para gerar IP14PM001, IP14PM002..."
+                  />
+                  <p className="text-xs text-gray-500">
+                    Se informado, as séries serão geradas automaticamente (001, 002, etc.)
+                  </p>
+                </div>
+                
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button type="button" variant="outline" onClick={() => setIsBatchDialogOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600">
+                    Lançar Lote
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="flex gap-4">

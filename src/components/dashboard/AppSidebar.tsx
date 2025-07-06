@@ -1,5 +1,5 @@
 
-import { LayoutDashboard, Package, ShoppingCart, Globe, Users, TrendingUp, Settings } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Globe, Users, TrendingUp, Settings, Box, Receipt } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Sidebar,
@@ -16,8 +16,10 @@ import {
 
 const navigation = [
   { title: 'Visão Geral', url: '/dashboard', icon: LayoutDashboard },
+  { title: 'Produtos', url: '/dashboard/products', icon: Box },
   { title: 'Inventário', url: '/dashboard/inventory', icon: Package },
   { title: 'PDV', url: '/dashboard/pos', icon: ShoppingCart },
+  { title: 'Vendas', url: '/dashboard/sales', icon: Receipt },
   { title: 'Catálogo', url: '/dashboard/catalog', icon: Globe },
   { title: 'CRM', url: '/dashboard/crm', icon: Users },
   { title: 'Previsão', url: '/dashboard/forecast', icon: TrendingUp },
