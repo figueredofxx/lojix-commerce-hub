@@ -74,21 +74,21 @@ export function ProductsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 px-2 sm:px-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Produtos</h1>
-          <p className="text-gray-600">Gerencie seus modelos de produtos</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Produtos</h1>
+          <p className="text-gray-600 text-sm sm:text-base">Gerencie seus modelos de produtos</p>
         </div>
         
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Novo Produto
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="w-[95vw] max-w-[425px] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Cadastrar Novo Produto</DialogTitle>
               <DialogDescription>
@@ -160,11 +160,11 @@ export function ProductsPage() {
                 />
               </div>
               
-              <div className="flex justify-end gap-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+              <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="w-full sm:w-auto">
                   Cancelar
                 </Button>
-                <Button type="submit" className="bg-teal-500 hover:bg-teal-600">
+                <Button type="submit" className="bg-teal-500 hover:bg-teal-600 w-full sm:w-auto">
                   Cadastrar Produto
                 </Button>
               </div>
@@ -173,7 +173,7 @@ export function ProductsPage() {
         </Dialog>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 px-2 sm:px-0">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <Input
@@ -185,29 +185,29 @@ export function ProductsPage() {
         </div>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {filteredProducts.map((product) => (
           <Card key={product.id} className="overflow-hidden">
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex gap-4">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex gap-3 sm:gap-4 min-w-0 flex-1">
                   <img
                     src={product.imageUrl}
                     alt={product.nomeModelo}
-                    className="w-16 h-16 rounded-lg object-cover"
+                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0"
                   />
-                  <div>
-                    <CardTitle className="text-xl">{product.nomeModelo}</CardTitle>
-                    <CardDescription className="flex items-center gap-2 mt-1">
-                      <Badge variant="secondary">{product.categoria}</Badge>
-                      <span>•</span>
-                      <span className="text-sm">
+                  <div className="min-w-0 flex-1">
+                    <CardTitle className="text-lg sm:text-xl truncate">{product.nomeModelo}</CardTitle>
+                    <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
+                      <Badge variant="secondary" className="w-fit">{product.categoria}</Badge>
+                      <span className="hidden sm:inline">•</span>
+                      <span className="text-xs sm:text-sm">
                         {product.unidadesDisponiveis} disponível(is) de {product.totalUnidades} total
                       </span>
                     </CardDescription>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-shrink-0">
                   <Button variant="outline" size="sm">
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -219,18 +219,18 @@ export function ProductsPage() {
             </CardHeader>
 
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Preço de Venda Sugerido</p>
-                  <p className="text-xl font-bold" style={{ color: '#1A535C' }}>
+                  <p className="text-xs sm:text-sm text-gray-600">Preço de Venda Sugerido</p>
+                  <p className="text-lg sm:text-xl font-bold" style={{ color: '#1A535C' }}>
                     R$ {product.precoVendaSugerido.toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Status do Estoque</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Status do Estoque</p>
                   <div className="flex items-center justify-center gap-2 mt-1">
                     <Package className="w-4 h-4" style={{ color: '#4ECDC4' }} />
-                    <span className="font-bold" style={{ color: '#4ECDC4' }}>
+                    <span className="font-bold text-sm sm:text-base" style={{ color: '#4ECDC4' }}>
                       {product.unidadesDisponiveis > 0 ? 'Disponível' : 'Esgotado'}
                     </span>
                   </div>
@@ -239,7 +239,7 @@ export function ProductsPage() {
               
               {product.descricao && (
                 <div className="mt-4">
-                  <p className="text-sm text-gray-600">{product.descricao}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">{product.descricao}</p>
                 </div>
               )}
             </CardContent>

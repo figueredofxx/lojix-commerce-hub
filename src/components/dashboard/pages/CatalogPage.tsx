@@ -55,19 +55,19 @@ export function CatalogPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 px-2 sm:px-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Catálogo Virtual</h1>
-          <p className="text-gray-600">Gerencie seu catálogo público para vendas</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Catálogo Virtual</h1>
+          <p className="text-gray-600 text-sm sm:text-base">Gerencie seu catálogo público para vendas</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button variant="outline" className="flex-1 sm:flex-none">
             <Edit className="w-4 h-4 mr-2" />
             Personalizar
           </Button>
           <Button 
-            className="bg-teal-500 hover:bg-teal-600 text-white"
+            className="bg-teal-500 hover:bg-teal-600 text-white flex-1 sm:flex-none"
             onClick={() => window.open(`https://${catalogUrl}`, '_blank')}
           >
             <Eye className="w-4 h-4 mr-2" />
@@ -76,11 +76,10 @@ export function CatalogPage() {
         </div>
       </div>
 
-      {/* Configurações do Catálogo */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Globe className="w-5 h-5" />
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
             Configurações do Catálogo
           </CardTitle>
           <CardDescription>Configure a visibilidade e o acesso ao seu catálogo</CardDescription>
@@ -98,10 +97,11 @@ export function CatalogPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">URL do Catálogo</label>
               <div className="flex gap-2">
-                <Input value={catalogUrl} readOnly className="bg-gray-50" />
+                <Input value={catalogUrl} readOnly className="bg-gray-50 text-sm" />
                 <Button
                   variant="outline"
                   onClick={() => copyToClipboard(`https://${catalogUrl}`)}
+                  className="flex-shrink-0"
                 >
                   <Share2 className="w-4 h-4" />
                 </Button>
@@ -114,49 +114,46 @@ export function CatalogPage() {
         </CardContent>
       </Card>
 
-      {/* Lista de Produtos no Catálogo */}
       <Card>
         <CardHeader>
-          <CardTitle>Produtos no Catálogo</CardTitle>
+          <CardTitle className="text-base sm:text-lg">Produtos no Catálogo</CardTitle>
           <CardDescription>Gerencie quais produtos aparecem no seu catálogo público</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {catalogProducts.map((product) => (
               <div key={product.id} className="border rounded-lg overflow-hidden">
                 <div className="relative">
                   <img
                     src={product.image}
                     alt={product.model}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-32 sm:h-48 object-cover"
                   />
                   <div className="absolute top-2 right-2">
-                    <Switch
-                      checked={product.visible}
-                    />
+                    <Switch checked={product.visible} />
                   </div>
                 </div>
                 
-                <div className="p-4 space-y-3">
+                <div className="p-3 sm:p-4 space-y-3">
                   <div>
-                    <h3 className="font-semibold text-lg">{product.model}</h3>
-                    <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                    <h3 className="font-semibold text-base sm:text-lg truncate">{product.model}</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{product.description}</p>
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <Badge variant="secondary">{product.category}</Badge>
-                    <span className="text-sm text-gray-600">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <Badge variant="secondary" className="w-fit">{product.category}</Badge>
+                    <span className="text-xs sm:text-sm text-gray-600">
                       {product.available} disponível(is)
                     </span>
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold" style={{ color: '#1A535C' }}>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <span className="text-xl sm:text-2xl font-bold" style={{ color: '#1A535C' }}>
                       R$ {product.price.toLocaleString()}
                     </span>
                     <Button
                       size="sm"
-                      className="bg-green-500 hover:bg-green-600 text-white"
+                      className="bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto"
                       onClick={() => window.open(generateWhatsAppLink(product), '_blank')}
                     >
                       <MessageCircle className="w-4 h-4 mr-1" />
@@ -170,37 +167,36 @@ export function CatalogPage() {
         </CardContent>
       </Card>
 
-      {/* Preview do Catálogo */}
       <Card>
         <CardHeader>
-          <CardTitle>Preview do Catálogo Público</CardTitle>
+          <CardTitle className="text-base sm:text-lg">Preview do Catálogo Público</CardTitle>
           <CardDescription>Veja como seus clientes verão o catálogo</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold mb-2" style={{ color: '#1A535C' }}>
+          <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
+            <div className="text-center mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: '#1A535C' }}>
                 Demo Store
               </h2>
-              <p className="text-gray-600">Produtos importados com qualidade garantida</p>
+              <p className="text-gray-600 text-sm sm:text-base">Produtos importados com qualidade garantida</p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {catalogProducts.filter(p => p.visible).map((product) => (
                 <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-sm">
                   <img
                     src={product.image}
                     alt={product.model}
-                    className="w-full h-32 object-cover"
+                    className="w-full h-24 sm:h-32 object-cover"
                   />
-                  <div className="p-3">
-                    <h3 className="font-medium text-sm mb-1">{product.model}</h3>
-                    <p className="text-lg font-bold" style={{ color: '#1A535C' }}>
+                  <div className="p-2 sm:p-3">
+                    <h3 className="font-medium text-sm mb-1 truncate">{product.model}</h3>
+                    <p className="text-base sm:text-lg font-bold mb-2" style={{ color: '#1A535C' }}>
                       R$ {product.price.toLocaleString()}
                     </p>
                     <Button
                       size="sm"
-                      className="w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white text-xs"
+                      className="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs"
                     >
                       Comprar via WhatsApp
                     </Button>
