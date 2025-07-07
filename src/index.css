@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,20 +40,20 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Lojix App Custom Colors */
+    --lojix-primary: 193 63% 22%; /* #1A535C */
+    --lojix-secondary: 177 65% 60%; /* #4ECDC4 */
+    --lojix-accent: 30 100% 56%; /* #FF9F1C */
+    --lojix-neutral-light: 0 0% 97%; /* #F7F7F7 */
+    --lojix-neutral-dark: 0 0% 20%; /* #333333 */
   }
 
   .dark {
@@ -101,5 +102,89 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cantarell', sans-serif;
+    font-weight: 700;
+  }
+
+  /* Custom animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4ECDC4;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1A535C;
+  }
+}
+
+/* Custom utility classes for Lojix design system */
+@layer utilities {
+  .text-lojix-primary {
+    color: #1A535C;
+  }
+  
+  .text-lojix-secondary {
+    color: #4ECDC4;
+  }
+  
+  .text-lojix-accent {
+    color: #FF9F1C;
+  }
+  
+  .bg-lojix-primary {
+    background-color: #1A535C;
+  }
+  
+  .bg-lojix-secondary {
+    background-color: #4ECDC4;
+  }
+  
+  .bg-lojix-accent {
+    background-color: #FF9F1C;
+  }
+  
+  .border-lojix-primary {
+    border-color: #1A535C;
+  }
+  
+  .border-lojix-secondary {
+    border-color: #4ECDC4;
+  }
+  
+  .border-lojix-accent {
+    border-color: #FF9F1C;
   }
 }
