@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, Package, Globe, CreditCard, BarChart3, Star, Check, MessageCircle, ArrowRight } from 'lucide-react';
+import { ChevronDown, Package, Globe, CreditCard, BarChart3, Star, Check, MessageCircle, ArrowRight, Zap, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -18,42 +18,46 @@ const Index = () => {
       icon: Package,
       title: t('features.inventory.title'),
       description: t('features.inventory.description'),
-      color: 'text-[#4ECDC4]'
+      gradient: 'from-[#4141e1] to-[#6366f1]'
     },
     {
       icon: Globe,
       title: t('features.catalog.title'),
       description: t('features.catalog.description'),
-      color: 'text-[#4ECDC4]'
+      gradient: 'from-[#6366f1] to-[#4141e1]'
     },
     {
       icon: CreditCard,
       title: t('features.pos.title'),
       description: t('features.pos.description'),
-      color: 'text-[#4ECDC4]'
+      gradient: 'from-[#4141e1] to-[#6366f1]'
     },
     {
       icon: BarChart3,
       title: t('features.forecast.title'),
       description: t('features.forecast.description'),
-      color: 'text-[#4ECDC4]'
+      gradient: 'from-[#6366f1] to-[#4141e1]'
     }
   ];
 
   const benefits = [
     {
+      icon: TrendingUp,
       title: t('benefits.profit.title'),
       description: t('benefits.profit.description')
     },
     {
+      icon: Zap,
       title: t('benefits.sales.title'),
       description: t('benefits.sales.description')
     },
     {
+      icon: Shield,
       title: t('benefits.organization.title'),
       description: t('benefits.organization.description')
     },
     {
+      icon: BarChart3,
       title: t('benefits.planning.title'),
       description: t('benefits.planning.description')
     }
@@ -66,37 +70,49 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Language Selector */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-6 right-6 z-50">
         <select
           value={i18n.language}
           onChange={(e) => changeLanguage(e.target.value)}
-          className="bg-white border border-[#1A535C] rounded-md px-3 py-1 text-sm font-medium text-[#1A535C] shadow-sm"
+          className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 shadow-lg hover:shadow-xl transition-all duration-300"
         >
-          <option value="pt">PT-BR</option>
-          <option value="es">ES</option>
+          <option value="pt">🇧🇷 PT-BR</option>
+          <option value="es">🇪🇸 ES</option>
         </select>
       </div>
 
       {/* Hero Section */}
-      <section className="bg-[#1A535C] text-white min-h-screen flex items-center">
-        <div className="container mx-auto px-4 py-12 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="space-y-6 lg:space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight animate-fade-in">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#4141e1] via-[#5b5bf6] to-[#6366f1] min-h-screen flex items-center">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            <div className="space-y-8 animate-fade-in">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-white/90 text-sm font-medium">
+                  <Zap className="h-4 w-4" />
+                  {t('hero.badge')}
+                </div>
+                
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
                   {t('hero.title')}
                 </h1>
-                <p className="text-lg sm:text-xl lg:text-2xl text-[#4ECDC4] font-semibold">
+                
+                <p className="text-xl sm:text-2xl lg:text-3xl text-blue-100 font-semibold leading-relaxed">
                   {t('hero.subtitle')}
                 </p>
-                <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
+                
+                <p className="text-lg sm:text-xl text-blue-100/80 leading-relaxed max-w-2xl">
                   {t('hero.description')}
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  className="bg-[#FF9F1C] hover:bg-orange-600 text-white font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+                  className="bg-white text-[#4141e1] hover:bg-blue-50 font-semibold px-8 py-6 text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                   onClick={() => window.location.href = '/cadastro'}
                 >
                   {t('hero.cta.primary')}
@@ -104,7 +120,7 @@ const Index = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-2 border-[#4ECDC4] text-[#4ECDC4] hover:bg-[#4ECDC4] hover:text-[#1A535C] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300"
+                  className="border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-semibold px-8 py-6 text-lg rounded-xl transition-all duration-300"
                   onClick={() => window.location.href = '/demo'}
                 >
                   {t('hero.cta.secondary')}
@@ -112,15 +128,19 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="lg:order-last">
+            <div className="relative animate-slide-up">
               <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-white/20 to-white/10 rounded-3xl blur-2xl"></div>
                 <img
-                  src="https://placehold.co/800x450/1A535C/4ECDC4?text=Lojix+App+Dashboard"
+                  src="https://placehold.co/900x600/ffffff/4141e1?text=Lojix+Dashboard+Interface"
                   alt={t('hero.image.alt')}
-                  className="w-full h-auto rounded-xl shadow-2xl animate-fade-in"
+                  className="relative w-full h-auto rounded-3xl shadow-2xl border border-white/20"
                 />
-                <div className="absolute -bottom-4 -right-4 bg-[#FF9F1C] text-white px-4 py-2 rounded-lg font-semibold text-sm">
-                  {t('hero.badge')}
+                <div className="absolute -bottom-6 -right-6 bg-white text-[#4141e1] px-6 py-3 rounded-2xl font-bold text-sm shadow-xl">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    Online Agora
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,28 +149,30 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-24 bg-[#F7F7F7]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1A535C] mb-4">
+      <section className="py-24 bg-gradient-light">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               {t('features.title')}
             </h2>
-            <p className="text-lg lg:text-xl text-[#333333] max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 leading-relaxed">
               {t('features.subtitle')}
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white border-none shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                <CardHeader className="text-center pb-4">
-                  <feature.icon className={`h-12 w-12 mx-auto mb-4 ${feature.color}`} />
-                  <CardTitle className="text-xl font-bold text-[#1A535C]">
+              <Card key={index} className="group bg-white border-0 shadow-lg hover:shadow-primary-lg transition-all duration-500 transform hover:-translate-y-2 rounded-2xl overflow-hidden">
+                <CardHeader className="text-center pb-6 pt-8">
+                  <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 mb-3">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-[#333333] text-center leading-relaxed">
+                <CardContent className="px-6 pb-8">
+                  <CardDescription className="text-gray-600 text-center leading-relaxed">
                     {feature.description}
                   </CardDescription>
                 </CardContent>
@@ -161,27 +183,27 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1A535C] mb-4">
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               {t('benefits.title')}
             </h2>
-            <p className="text-lg lg:text-xl text-[#333333] max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 leading-relaxed">
               {t('benefits.subtitle')}
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 max-w-7xl mx-auto">
             {benefits.map((benefit, index) => (
-              <div key={index} className="text-center space-y-4">
-                <div className="bg-[#4ECDC4] bg-opacity-10 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
-                  <Check className="h-8 w-8 text-[#4ECDC4]" />
+              <div key={index} className="text-center space-y-6 group">
+                <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-primary flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-primary">
+                  <benefit.icon className="h-10 w-10 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#1A535C]">
+                <h3 className="text-xl font-bold text-gray-900">
                   {benefit.title}
                 </h3>
-                <p className="text-[#333333] leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   {benefit.description}
                 </p>
               </div>
@@ -189,16 +211,16 @@ const Index = () => {
           </div>
           
           {/* Testimonial */}
-          <div className="bg-[#4ECDC4] bg-opacity-10 rounded-xl p-8 lg:p-12 text-center max-w-4xl mx-auto">
-            <div className="flex justify-center mb-4">
+          <div className="bg-gradient-light rounded-3xl p-12 text-center max-w-4xl mx-auto shadow-primary">
+            <div className="flex justify-center mb-6">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 text-[#FF9F1C] fill-current" />
+                <Star key={i} className="h-8 w-8 text-yellow-400 fill-current" />
               ))}
             </div>
-            <blockquote className="text-lg lg:text-xl italic text-[#333333] mb-6">
+            <blockquote className="text-xl lg:text-2xl italic text-gray-700 mb-8 leading-relaxed">
               "{t('testimonial.quote')}"
             </blockquote>
-            <cite className="text-[#1A535C] font-semibold">
+            <cite className="text-[#4141e1] font-bold text-lg">
               {t('testimonial.author')}
             </cite>
           </div>
@@ -206,68 +228,81 @@ const Index = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 lg:py-24 bg-[#F7F7F7]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1A535C] mb-4">
+      <section className="py-24 bg-gradient-light">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               {t('pricing.title')}
             </h2>
-            <p className="text-lg lg:text-xl text-[#333333] max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-600 leading-relaxed mb-8">
               {t('pricing.subtitle')}
             </p>
             
-            {/* Pricing Toggle */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <span className={`font-medium ${!showAnnualPricing ? 'text-[#1A535C]' : 'text-gray-500'}`}>
-                {t('pricing.monthly')}
-              </span>
+            {/* Modern Pricing Toggle */}
+            <div className="inline-flex items-center gap-4 bg-white rounded-2xl p-2 shadow-lg">
               <button
-                onClick={() => setShowAnnualPricing(!showAnnualPricing)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${showAnnualPricing ? 'bg-[#4ECDC4]' : 'bg-gray-300'}`}
+                onClick={() => setShowAnnualPricing(false)}
+                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                  !showAnnualPricing 
+                    ? 'bg-[#4141e1] text-white shadow-lg' 
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
               >
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${showAnnualPricing ? 'translate-x-7' : 'translate-x-1'}`} />
+                {t('pricing.monthly')}
               </button>
-              <span className={`font-medium ${showAnnualPricing ? 'text-[#1A535C]' : 'text-gray-500'}`}>
+              <button
+                onClick={() => setShowAnnualPricing(true)}
+                className={`px-6 py-3 rounded-xl font-semibold transition-all relative ${
+                  showAnnualPricing 
+                    ? 'bg-[#4141e1] text-white shadow-lg' 
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
                 {t('pricing.annual')}
-              </span>
+                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                  -20%
+                </span>
+              </button>
             </div>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Basic Plan */}
-            <Card className="bg-white border-2 border-gray-200 shadow-lg">
-              <CardHeader className="text-center pb-6">
-                <CardTitle className="text-2xl font-bold text-[#1A535C]">
+            <Card className="bg-white border-0 shadow-xl rounded-3xl overflow-hidden">
+              <CardHeader className="text-center pb-8 pt-12 bg-gradient-to-br from-gray-50 to-white">
+                <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
                   {t('pricing.basic.name')}
                 </CardTitle>
-                <CardDescription className="text-[#333333] mb-4">
+                <CardDescription className="text-gray-600 mb-8 text-lg">
                   {t('pricing.basic.description')}
                 </CardDescription>
                 <div className="space-y-2">
-                  <div className="text-4xl font-bold text-[#1A535C]">
+                  <div className="text-5xl font-bold text-[#4141e1]">
                     {showAnnualPricing ? 'R$ 228' : 'R$ 19'}
-                    <span className="text-lg font-normal text-gray-500">
+                    <span className="text-xl font-normal text-gray-500">
                       {showAnnualPricing ? '/ano' : '/mês'}
                     </span>
                   </div>
                   {showAnnualPricing && (
-                    <div className="text-sm text-[#4ECDC4] font-semibold">
+                    <div className="text-sm text-green-600 font-semibold bg-green-50 px-3 py-1 rounded-full inline-block">
                       {t('pricing.savings')}
                     </div>
                   )}
                 </div>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
+              <CardContent className="space-y-8 p-8">
+                <ul className="space-y-4">
                   {basicFeatures.map((feature: string, index: number) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-[#4ECDC4] flex-shrink-0" />
-                      <span className="text-[#333333]">{feature}</span>
+                    <li key={index} className="flex items-center gap-4">
+                      <div className="w-6 h-6 rounded-full bg-[#4141e1] flex items-center justify-center flex-shrink-0">
+                        <Check className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className="w-full bg-[#FF9F1C] hover:bg-orange-600 text-white font-semibold py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-primary hover:opacity-90 text-white font-semibold py-6 text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-primary"
                   onClick={() => window.location.href = '/checkout?plan=basico'}
                 >
                   {t('pricing.basic.cta')}
@@ -276,44 +311,46 @@ const Index = () => {
             </Card>
 
             {/* Advanced Plan */}
-            <Card className="bg-white border-2 border-[#4ECDC4] shadow-xl relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <div className="bg-[#FF9F1C] text-white px-6 py-2 rounded-full font-semibold text-sm">
+            <Card className="bg-white border-0 shadow-2xl rounded-3xl overflow-hidden relative transform scale-105">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                <div className="bg-gradient-primary text-white px-8 py-3 rounded-2xl font-bold text-sm shadow-lg">
                   {t('pricing.popular')}
                 </div>
               </div>
-              <CardHeader className="text-center pb-6 pt-8">
-                <CardTitle className="text-2xl font-bold text-[#1A535C]">
+              <CardHeader className="text-center pb-8 pt-16 bg-gradient-to-br from-[#4141e1]/5 to-[#6366f1]/5">
+                <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
                   {t('pricing.advanced.name')}
                 </CardTitle>
-                <CardDescription className="text-[#333333] mb-4">
+                <CardDescription className="text-gray-600 mb-8 text-lg">
                   {t('pricing.advanced.description')}
                 </CardDescription>
                 <div className="space-y-2">
-                  <div className="text-4xl font-bold text-[#1A535C]">
+                  <div className="text-5xl font-bold text-[#4141e1]">
                     {showAnnualPricing ? 'R$ 708' : 'R$ 49'}
-                    <span className="text-lg font-normal text-gray-500">
+                    <span className="text-xl font-normal text-gray-500">
                       {showAnnualPricing ? '/ano' : '/mês'}
                     </span>
                   </div>
                   {showAnnualPricing && (
-                    <div className="text-sm text-[#4ECDC4] font-semibold">
+                    <div className="text-sm text-green-600 font-semibold bg-green-50 px-3 py-1 rounded-full inline-block">
                       {t('pricing.savings')}
                     </div>
                   )}
                 </div>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
+              <CardContent className="space-y-8 p-8">
+                <ul className="space-y-4">
                   {advancedFeatures.map((feature: string, index: number) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-[#4ECDC4] flex-shrink-0" />
-                      <span className="text-[#333333]">{feature}</span>
+                    <li key={index} className="flex items-center gap-4">
+                      <div className="w-6 h-6 rounded-full bg-[#4141e1] flex items-center justify-center flex-shrink-0">
+                        <Check className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className="w-full bg-[#FF9F1C] hover:bg-orange-600 text-white font-semibold py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-primary hover:opacity-90 text-white font-semibold py-6 text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-primary-lg"
                   onClick={() => window.location.href = '/checkout?plan=avancado'}
                 >
                   {t('pricing.advanced.cta')}
@@ -325,26 +362,28 @@ const Index = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1A535C]">
-              {t('finalCta.title')}
-            </h2>
-            <p className="text-lg lg:text-xl text-[#333333]">
-              {t('finalCta.subtitle')}
-            </p>
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto space-y-12">
+            <div className="space-y-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900">
+                {t('finalCta.title')}
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {t('finalCta.subtitle')}
+              </p>
+            </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-2xl mx-auto">
               <Button
-                className="bg-[#FF9F1C] hover:bg-orange-600 text-white font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-10 py-6 text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-primary-lg flex-1 sm:flex-initial"
                 onClick={() => window.location.href = '/cadastro'}
               >
                 {t('finalCta.primary')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
-                className="bg-[#4ECDC4] hover:bg-teal-600 text-white font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="bg-white border-2 border-[#4141e1] text-[#4141e1] hover:bg-[#4141e1] hover:text-white font-semibold px-10 py-6 text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 flex-1 sm:flex-initial"
                 onClick={() => window.open('https://wa.me/5545999999999?text=Olá! Quero saber mais sobre o Lojix App.', '_blank')}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
@@ -356,14 +395,21 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1A535C] text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-[#4ECDC4] font-semibold text-lg">
-            Lojix App - {t('footer.tagline')}
-          </p>
-          <p className="text-gray-300 mt-2">
-            © 2024 Lojix App. {t('footer.rights')}
-          </p>
+      <footer className="bg-gradient-to-r from-[#4141e1] to-[#6366f1] text-white py-16">
+        <div className="container mx-auto px-6 text-center">
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold">
+              Lojix App
+            </h3>
+            <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+              {t('footer.tagline')}
+            </p>
+            <div className="border-t border-white/20 pt-8 mt-8">
+              <p className="text-blue-100">
+                © 2024 Lojix App. {t('footer.rights')}
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

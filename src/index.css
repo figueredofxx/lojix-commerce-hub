@@ -3,9 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern design system with primary color #4141e1 */
 
 @layer base {
   :root {
@@ -37,7 +35,7 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -47,13 +45,6 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Lojix App Custom Colors */
-    --lojix-primary: 193 63% 22%; /* #1A535C */
-    --lojix-secondary: 177 65% 60%; /* #4ECDC4 */
-    --lojix-accent: 30 100% 56%; /* #FF9F1C */
-    --lojix-neutral-light: 0 0% 97%; /* #F7F7F7 */
-    --lojix-neutral-dark: 0 0% 20%; /* #333333 */
   }
 
   .dark {
@@ -103,27 +94,14 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-variation-settings: normal;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cantarell', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 700;
-  }
-
-  /* Custom animations */
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out;
+    letter-spacing: -0.025em;
   }
 
   /* Smooth scrolling for better UX */
@@ -133,58 +111,51 @@ All colors MUST be HSL.
 
   /* Custom scrollbar styling */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f1f5f9;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #4ECDC4;
-    border-radius: 4px;
+    background: #4141e1;
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #1A535C;
+    background: #3730a3;
   }
 }
 
-/* Custom utility classes for Lojix design system */
+/* Modern utility classes */
 @layer utilities {
-  .text-lojix-primary {
-    color: #1A535C;
+  .text-gradient {
+    background: linear-gradient(135deg, #4141e1 0%, #6366f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .text-lojix-secondary {
-    color: #4ECDC4;
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #4141e1 0%, #6366f1 100%);
   }
   
-  .text-lojix-accent {
-    color: #FF9F1C;
+  .bg-gradient-light {
+    background: linear-gradient(135deg, rgba(65, 65, 225, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
   }
   
-  .bg-lojix-primary {
-    background-color: #1A535C;
+  .shadow-primary {
+    box-shadow: 0 4px 14px 0 rgba(65, 65, 225, 0.15);
   }
   
-  .bg-lojix-secondary {
-    background-color: #4ECDC4;
+  .shadow-primary-lg {
+    box-shadow: 0 10px 25px -3px rgba(65, 65, 225, 0.1), 0 4px 6px -2px rgba(65, 65, 225, 0.05);
   }
   
-  .bg-lojix-accent {
-    background-color: #FF9F1C;
-  }
-  
-  .border-lojix-primary {
-    border-color: #1A535C;
-  }
-  
-  .border-lojix-secondary {
-    border-color: #4ECDC4;
-  }
-  
-  .border-lojix-accent {
-    border-color: #FF9F1C;
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #4141e1, #6366f1) border-box;
   }
 }
