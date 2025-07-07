@@ -59,6 +59,10 @@ const Index = () => {
     }
   ];
 
+  // Get features arrays with proper typing
+  const basicFeatures = t('pricing.basic.features', { returnObjects: true }) as string[];
+  const advancedFeatures = t('pricing.advanced.features', { returnObjects: true }) as string[];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Language Selector */}
@@ -255,7 +259,7 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <ul className="space-y-3">
-                  {t('pricing.basic.features', { returnObjects: true }).map((feature: string, index: number) => (
+                  {basicFeatures.map((feature: string, index: number) => (
                     <li key={index} className="flex items-center gap-3">
                       <Check className="h-5 w-5 text-[#4ECDC4] flex-shrink-0" />
                       <span className="text-[#333333]">{feature}</span>
@@ -301,7 +305,7 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <ul className="space-y-3">
-                  {t('pricing.advanced.features', { returnObjects: true }).map((feature: string, index: number) => (
+                  {advancedFeatures.map((feature: string, index: number) => (
                     <li key={index} className="flex items-center gap-3">
                       <Check className="h-5 w-5 text-[#4ECDC4] flex-shrink-0" />
                       <span className="text-[#333333]">{feature}</span>
